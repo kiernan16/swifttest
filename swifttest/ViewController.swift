@@ -20,6 +20,7 @@ class ViewController: UIViewController {
                               "http://pngimg.com/upload/lamborghini_PNG10694.png",
                               "http://pngimg.com/upload/frog_PNG3848.png",
                               "http://pngimg.com/upload/ship_PNG5403.png",
+                              "http://16004-presscdn-0-50.pagely.netdna-cdn.com/wp-content/uploads/Labor-force-copy-575x541.jpg",
                               "http://vignette1.wikia.nocookie.net/pepe-the-frog/images/a/a3/Sad_Pepe.png/revision/latest?cb=20150909150849"]
     
     
