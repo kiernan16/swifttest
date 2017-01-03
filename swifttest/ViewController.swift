@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 
 class ViewController: UIViewController {
@@ -60,7 +61,7 @@ class ViewController: UIViewController {
             }
         }
     
-        print(imageView.image as Any)
+      //  print(imageView.image as Any)
     
     }
     
@@ -84,13 +85,82 @@ class ViewController: UIViewController {
     // function which is triggered when handleTap is called
     func handleLongPress(_ sender: UILongPressGestureRecognizer) {
         
-        if(sender.state == UIGestureRecognizerState.began) {
+        if(sender.state == UIGestureRecognizerState.began && imageView.image != nil) {
             print("Started")
+            
+            let alertController = UIAlertController(title: "Save image to Photos?", message: "Save image to Photos?", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "SAVE", style: UIAlertActionStyle.default)
+            {
+                (result : UIAlertAction) -> Void in
+                print("You saved image")
+             
+                self.saveImage()
+            }
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {
+                (alert) -> Void in
+                print("Cancelled saved image")
+            }
+            
+            alertController.addAction(okAction)
+            alertController.addAction(cancelAction)
+            self.present(alertController, animated: true, completion: nil)
+            
+            
         } else {
             print("Ended")
         }
     }
     
+    func saveImageToPhotos(image: UIImage, to album: PHAssetCollection) {
+        PHPhotoLibrary.shared().performChanges({
+            // Request creating an asset from the image.
+            let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
+            // Request editing the album.
+            guard let addAssetRequest = PHAssetCollectionChangeRequest(for: album)
+                else { return }
+            // Get a placeholder for the new asset and add it to the album editing request.
+            addAssetRequest.addAssets([creationRequest.placeholderForCreatedAsset!] as NSArray)
+        }, completionHandler: { success, error in
+            if !success { NSLog("error creating asset: \(error)") }
+        })
+    }
+    
+    func saveImage () {
+        let albumName:String = "swifttest"
+        var collection:PHAssetCollection!
+        var options:PHFetchOptions = PHFetchOptions()
+        options.predicate = NSPredicate(format: "estimatedAssetCount >= 0")
+        
+        var userAlbums:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.album, subtype: PHAssetCollectionSubtype.any, options: options)
+        
+        var assetCollectionPlaceholder:PHObjectPlaceholder!
+        PHPhotoLibrary.shared().performChanges({
+            let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)
+            assetCollectionPlaceholder = request.placeholderForCreatedAssetCollection
+        },
+        
+            completionHandler: { (success:Bool, Error:Error?) in
+                if (success) {
+                    var result:PHFetchResult = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [assetCollectionPlaceholder.localIdentifier], options: nil)
+                    collection = result.firstObject! as PHAssetCollection
+                }
+        })
+        
+        userAlbums.enumerateObjects(using: { (object: AnyObject!, count: Int, stop: UnsafeMutablePointer) in
+            if object is PHAssetCollection {
+                let obj:PHAssetCollection = object as! PHAssetCollection
+                if (obj.localizedTitle == albumName) {
+                    collection = obj
+                    stop.initialize(to: true)
+                }
+            }
+        })
+     
+        self.saveImageToPhotos(image: self.imageView.image!, to: collection)
+        
+    }
     
 }
 
