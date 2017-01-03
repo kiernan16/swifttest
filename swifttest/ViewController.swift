@@ -11,6 +11,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+//MARK: - Declarations
+    
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var button: UIButton!
     
@@ -23,18 +25,24 @@ class ViewController: UIViewController {
                               "http://16004-presscdn-0-50.pagely.netdna-cdn.com/wp-content/uploads/Labor-force-copy-575x541.jpg",
                               "http://vignette1.wikia.nocookie.net/pepe-the-frog/images/a/a3/Sad_Pepe.png/revision/latest?cb=20150909150849"]
     
+//MARK: - Set up
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(_:)))
+        imageView.addGestureRecognizer(longPress)
+        imageView.isUserInteractionEnabled = true
+        self.view.addSubview(imageView)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+  
+//MARK: - IBActions
     
     @IBAction func didTouchButton (sender: AnyObject) {
         
@@ -53,9 +61,12 @@ class ViewController: UIViewController {
         }
     
         print(imageView.image as Any)
+    
     }
+    
 
-
+//MARK: - Functions
+    
     func getRandNumber() -> Int {
         
         var randNumber = Int(arc4random_uniform(UInt32(urlArray.count)))
@@ -69,5 +80,17 @@ class ViewController: UIViewController {
         
         return randNumber
     }
+    
+    // function which is triggered when handleTap is called
+    func handleLongPress(_ sender: UILongPressGestureRecognizer) {
+        
+        if(sender.state == UIGestureRecognizerState.began) {
+            print("Started")
+        } else {
+            print("Ended")
+        }
+    }
+    
+    
 }
 
