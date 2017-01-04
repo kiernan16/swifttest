@@ -1,18 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="OFp-A6-ga0">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
+        <scene sceneID="unc-ke-uXP">
+            <objects>
+                <viewController id="OFp-A6-ga0" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cWA-aA-7af"/>
+                        <viewControllerLayoutGuide type="bottom" id="XRv-2a-CgQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1uO-3c-wDg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bva-gp-Arb">
+                                <rect key="frame" x="16" y="28" width="343" height="70"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="gkn-6h-MNu"/>
+                                </constraints>
+                                <state key="normal" title="Random Image"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" id="Lam-Yf-cI9"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Bva-gp-Arb" firstAttribute="trailing" secondItem="1uO-3c-wDg" secondAttribute="trailingMargin" id="6s3-lv-zzP"/>
+                            <constraint firstItem="Bva-gp-Arb" firstAttribute="top" secondItem="cWA-aA-7af" secondAttribute="bottom" constant="8" id="Kjk-CP-eka"/>
+                            <constraint firstItem="Bva-gp-Arb" firstAttribute="leading" secondItem="1uO-3c-wDg" secondAttribute="leadingMargin" id="hdX-EX-OdN"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6eK-BK-J25" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-674.39999999999998" y="138.98050974512745"/>
+        </scene>
+        <!--Random Image View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="swifttest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="RandomImageViewController" customModule="swifttest" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -28,24 +64,50 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GDu-Ye-KWt">
-                                <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                                <rect key="frame" x="106" y="587" width="269" height="80"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="S3g-iu-nBZ"/>
+                                    <constraint firstAttribute="height" constant="80" id="S3g-iu-nBZ"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Random New Image"/>
                                 <connections>
                                     <action selector="didTouchButtonWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kyq-hX-dA3"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hold down on image to save to your Photo Library" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lgd-iv-gN8">
+                                <rect key="frame" x="83" y="446" width="209" height="121"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="121" id="9YP-7P-wj9"/>
+                                    <constraint firstAttribute="width" constant="209" id="axa-zr-zcK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sdw-5B-CUe">
+                                <rect key="frame" x="0.0" y="586" width="96" height="81"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="96" id="1Fu-g8-ttS"/>
+                                    <constraint firstAttribute="height" constant="81" id="PQC-US-chf"/>
+                                </constraints>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <segue destination="OFp-A6-ga0" kind="presentation" id="v6d-qA-mTb"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="GDu-Ye-KWt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4xm-ye-6Ul"/>
                             <constraint firstItem="SLJ-IU-Nli" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="5Qf-Gm-fMV"/>
+                            <constraint firstItem="GDu-Ye-KWt" firstAttribute="top" secondItem="lgd-iv-gN8" secondAttribute="bottom" constant="20" id="GHl-i2-GX1"/>
                             <constraint firstItem="SLJ-IU-Nli" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="QCE-EX-a8q"/>
                             <constraint firstAttribute="trailing" secondItem="SLJ-IU-Nli" secondAttribute="trailing" id="SSD-kk-8h7"/>
                             <constraint firstAttribute="trailing" secondItem="GDu-Ye-KWt" secondAttribute="trailing" id="ZH9-0K-X0d"/>
+                            <constraint firstItem="lgd-iv-gN8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="cAD-0S-iwS"/>
+                            <constraint firstAttribute="bottom" secondItem="Sdw-5B-CUe" secondAttribute="bottom" id="eMI-8b-afy"/>
+                            <constraint firstItem="GDu-Ye-KWt" firstAttribute="leading" secondItem="Sdw-5B-CUe" secondAttribute="trailing" constant="10" id="lDt-me-aNt"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="GDu-Ye-KWt" secondAttribute="bottom" id="p5r-td-z6e"/>
+                            <constraint firstItem="Sdw-5B-CUe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="reQ-O8-x1Z"/>
                         </constraints>
                     </view>
                     <connections>

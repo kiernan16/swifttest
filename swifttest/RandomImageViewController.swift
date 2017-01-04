@@ -10,7 +10,7 @@ import UIKit
 import Photos
 
 
-class ViewController: UIViewController {
+class RandomImageViewController: UIViewController {
 
 //MARK: - Declarations
     
