@@ -18,13 +18,15 @@ class ViewController: UIViewController {
     @IBOutlet var button: UIButton!
     
     var compareNumber = -1
+    var albumName: String = "swifttest"
     
     let urlArray: [String] = ["https://robohash.org/123.png",
                               "http://pngimg.com/upload/lamborghini_PNG10694.png",
                               "http://pngimg.com/upload/frog_PNG3848.png",
                               "http://pngimg.com/upload/ship_PNG5403.png",
                               "http://16004-presscdn-0-50.pagely.netdna-cdn.com/wp-content/uploads/Labor-force-copy-575x541.jpg",
-                              "http://vignette1.wikia.nocookie.net/pepe-the-frog/images/a/a3/Sad_Pepe.png/revision/latest?cb=20150909150849"]
+                              "http://vignette1.wikia.nocookie.net/pepe-the-frog/images/a/a3/Sad_Pepe.png/revision/latest?cb=20150909150849",
+                              "http://www.maserati.com/mediaObject/sites/international/Models/granturismo/thumbnails/Granturismo-sport/2016-05-31/GT-Sport/resolutions/res-l10000x500/GT-Sport.jpg"]
     
 //MARK: - Set up
     
@@ -36,6 +38,7 @@ class ViewController: UIViewController {
         imageView.addGestureRecognizer(longPress)
         imageView.isUserInteractionEnabled = true
         self.view.addSubview(imageView)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -44,7 +47,6 @@ class ViewController: UIViewController {
     }
   
 //MARK: - IBActions
-    
     @IBAction func didTouchButton (sender: AnyObject) {
         
         let urlString = urlArray[self.getRandNumber()]
@@ -60,14 +62,10 @@ class ViewController: UIViewController {
                 print(error)
             }
         }
-    
-      //  print(imageView.image as Any)
-    
     }
     
 
 //MARK: - Functions
-    
     func getRandNumber() -> Int {
         
         var randNumber = Int(arc4random_uniform(UInt32(urlArray.count)))
@@ -77,7 +75,6 @@ class ViewController: UIViewController {
         }
         
         compareNumber = randNumber
-        
         
         return randNumber
     }
@@ -93,9 +90,7 @@ class ViewController: UIViewController {
             let okAction = UIAlertAction(title: "SAVE", style: UIAlertActionStyle.default)
             {
                 (result : UIAlertAction) -> Void in
-                print("You saved image")
-             
-                self.saveImage()
+                self.saveImageToPhotos(image: self.imageView.image!)
             }
             
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel) {
@@ -113,54 +108,14 @@ class ViewController: UIViewController {
         }
     }
     
-    func saveImageToPhotos(image: UIImage, to album: PHAssetCollection) {
-        PHPhotoLibrary.shared().performChanges({
-            // Request creating an asset from the image.
-            let creationRequest = PHAssetChangeRequest.creationRequestForAsset(from: image)
-            // Request editing the album.
-            guard let addAssetRequest = PHAssetCollectionChangeRequest(for: album)
-                else { return }
-            // Get a placeholder for the new asset and add it to the album editing request.
-            addAssetRequest.addAssets([creationRequest.placeholderForCreatedAsset!] as NSArray)
-        }, completionHandler: { success, error in
-            if !success { NSLog("error creating asset: \(error)") }
-        })
+//MARK: Save Image
+    func saveImageToPhotos(image: UIImage) {
+        let _ = CustomPhotoAlbum.sharedInstance     //hack to save photo if album isn't yet created
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {     //gives us a little bit of time to create album
+            CustomPhotoAlbum.sharedInstance.save(image: image)
+            print("You saved image")
+        }
     }
-    
-    func saveImage () {
-        let albumName:String = "swifttest"
-        var collection:PHAssetCollection!
-        var options:PHFetchOptions = PHFetchOptions()
-        options.predicate = NSPredicate(format: "estimatedAssetCount >= 0")
-        
-        var userAlbums:PHFetchResult = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.album, subtype: PHAssetCollectionSubtype.any, options: options)
-        
-        var assetCollectionPlaceholder:PHObjectPlaceholder!
-        PHPhotoLibrary.shared().performChanges({
-            let request = PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: albumName)
-            assetCollectionPlaceholder = request.placeholderForCreatedAssetCollection
-        },
-        
-            completionHandler: { (success:Bool, Error:Error?) in
-                if (success) {
-                    var result:PHFetchResult = PHAssetCollection.fetchAssetCollections(withLocalIdentifiers: [assetCollectionPlaceholder.localIdentifier], options: nil)
-                    collection = result.firstObject! as PHAssetCollection
-                }
-        })
-        
-        userAlbums.enumerateObjects(using: { (object: AnyObject!, count: Int, stop: UnsafeMutablePointer) in
-            if object is PHAssetCollection {
-                let obj:PHAssetCollection = object as! PHAssetCollection
-                if (obj.localizedTitle == albumName) {
-                    collection = obj
-                    stop.initialize(to: true)
-                }
-            }
-        })
-     
-        self.saveImageToPhotos(image: self.imageView.image!, to: collection)
-        
-    }
-    
 }
 

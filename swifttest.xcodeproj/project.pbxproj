@@ -14,6 +14,7 @@
 		F3DD7EA61E16D159007B590D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F3DD7EA41E16D159007B590D /* LaunchScreen.storyboard */; };
 		F3DD7EB11E16D159007B590D /* swifttestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DD7EB01E16D159007B590D /* swifttestTests.swift */; };
 		F3DD7EBC1E16D159007B590D /* swifttestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DD7EBB1E16D159007B590D /* swifttestUITests.swift */; };
+		F3DD7ECA1E1D4EF6007B590D /* CustomPhotoAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DD7EC91E1D4EF6007B590D /* CustomPhotoAlbum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		F3DD7EB71E16D159007B590D /* swifttestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swifttestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3DD7EBB1E16D159007B590D /* swifttestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swifttestUITests.swift; sourceTree = "<group>"; };
 		F3DD7EBD1E16D159007B590D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3DD7EC91E1D4EF6007B590D /* CustomPhotoAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CustomPhotoAlbum.swift; path = ../CustomPhotoAlbum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				F3DD7E9B1E16D159007B590D /* AppDelegate.swift */,
 				F3DD7E9D1E16D159007B590D /* ViewController.swift */,
+				F3DD7EC91E1D4EF6007B590D /* CustomPhotoAlbum.swift */,
 				F3DD7E9F1E16D159007B590D /* Main.storyboard */,
 				F3DD7EA21E16D159007B590D /* Assets.xcassets */,
 				F3DD7EA41E16D159007B590D /* LaunchScreen.storyboard */,
@@ -264,6 +267,7 @@
 			files = (
 				F3DD7E9E1E16D159007B590D /* ViewController.swift in Sources */,
 				F3DD7E9C1E16D159007B590D /* AppDelegate.swift in Sources */,
+				F3DD7ECA1E1D4EF6007B590D /* CustomPhotoAlbum.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
